@@ -2,6 +2,7 @@ package com.hemebiotech.analytics;
 
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class AnalyticsCounter {
 	private final HashMap<String, Integer> symptoms;
@@ -31,11 +32,20 @@ public class AnalyticsCounter {
 	 */
 	
 	public void process() {
-		
+		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		reader.getSymptoms();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder string = new StringBuilder();
+		for (Entry<String, Integer> symptom : symptoms.entrySet()) {
+			string.append(symptom.getKey()).append(", ").append(symptom.getValue()).append("\n");
+		}
+		return string.toString();
 	}
 	
 	public static void main(String args[]) throws Exception {
-		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
-		reader.getSymptoms();
+		
 	}
 }
