@@ -18,22 +18,6 @@ public class AnalyticsCounter {
 	}
 	
 	/**
-	 * 
-	 * @param symptoms
-	 * @param s
-	 */
-	public void increment(String s) {
-		int value = 0;
-		if(!(this.symptoms.containsKey(s))) {
-			value = 1;
-		}
-		else {
-			value += this.symptoms.get(s) + 1;
-		}
-		this.symptoms.put(s, value);
-	}
-	
-	/**
 	 * Writes data from HashMap symptoms in a "result.out" file. 
 	 * @throws IOException
 	 */
@@ -42,8 +26,8 @@ public class AnalyticsCounter {
 		FileWriter writer = new FileWriter("results.out");
 		for (Entry<String, Integer> symptom : symptoms.entrySet()) {
 			string.append(symptom.getKey()).append(", ").append(symptom.getValue()).append("\n");
-			writer.write(string.toString());
 		}
+		writer.write(string.toString());
 		writer.close();
 	}
 	
@@ -54,7 +38,8 @@ public class AnalyticsCounter {
 	public void process() throws IOException {
 		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
 		for (String s : reader.getSymptoms()) {
-			this.increment(s);
+			symptoms.putIfAbsent(s, 0);
+			symptoms.put(s, symptoms.get(s) + 1);
 		}
 		this.writes();
 	}
