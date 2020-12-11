@@ -3,22 +3,18 @@ package com.hemebiotech.analytics;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map.Entry;
-
-/*TODO
- * supprimer les doublons et trier les symptomes
- */
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-	private final HashMap<String, Integer> symptoms;
+	private final TreeMap<String, Integer> symptoms;
 	
 	public AnalyticsCounter() {
-		this.symptoms = new HashMap<String, Integer>();
+		this.symptoms = new TreeMap<String, Integer>();
 	}
 	
 	/**
-	 * Writes data from HashMap symptoms in a "result.out" file. 
+	 * Writes data from TreeMap symptoms in a "result.out" file. 
 	 * @throws IOException
 	 */
 	public void writes() throws IOException {
